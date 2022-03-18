@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "antd";
 
-export const ButtonCreate = () => {
+export const PostButton = () => {
    const handleClick = () => {
         console.log("Есть контакт");
     }
