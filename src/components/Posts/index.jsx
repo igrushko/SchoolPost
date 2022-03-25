@@ -1,29 +1,28 @@
-import React from "react";
-import { Post } from '../Post';
+import React, { useState } from "react";
+import { Post } from "../Post";
 import { List } from "antd";
-import { postData } from "../../posts";
 
+export const Posts = ({ postsData, onPostLike, currentUserId }) => {
+  const [rows, setRows] = useState(2);
+  function onShowSizeChange(pageNumber, pageSize) {
+    setRows(pageSize);
+  }
 
-
-export const Posts = () => { 
-  
-  return (        
-      <>  
+  return (
+    <>
+    { currentUserId &&
       <List
-      itemLayout="vertical"
-      size="small"
-      dataSource={postData}
-      renderItem={(item) => (      
-        <Post key={item._id} {...item} />)} 
+        itemLayout="vertical"
+        size="small"
+        dataSource={postsData}
+       renderItem={(item) => <Post key={item._id} {...item} onPostLike = {onPostLike} currentUserId = {currentUserId}/>}
         pagination={{
-          pageSize: 2,
-          onChange: page => {
-            console.log(page);
-          },
-    
-      }}
-        />
-        
-      </>        
+          pageSize: rows,
+          pageSizeOptions: [2, 5, 10, 25],
+          showSizeChanger: true,
+          onShowSizeChange: onShowSizeChange,
+        }}
+      />}
+    </>
   );
-};  
+};
