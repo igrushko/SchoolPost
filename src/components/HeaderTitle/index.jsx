@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Space } from "antd";
-import { PostButton } from "../PostButton";
+
 const { Title } = Typography;
 
 export const HeaderTitle = () => {
@@ -13,7 +13,7 @@ export const HeaderTitle = () => {
       <Title level={5}>
         We're stoked that you're here.
       </Title>
-      <PostButton />    
+      
      </Space>
     
   );

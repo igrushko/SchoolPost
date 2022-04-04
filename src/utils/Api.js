@@ -1,6 +1,8 @@
-const onResponce = (res) => {
+const onResponce = (res) => {  
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 };
+
+
 class Api {
   constructor({ baseUrl, token }) {
     this._baseUrl = baseUrl;
@@ -43,6 +45,15 @@ class Api {
       }).then(onResponce);
     }
   }
+
+  getPostById(postID) {
+    return fetch(`${this._baseUrl}/posts/${postID}`, {
+      headers: {
+        authorization: this._token,
+      },
+    }).then(onResponce);
+  }
+  
 }
 const config = {
   baseUrl: "https://api.react-learning.ru",

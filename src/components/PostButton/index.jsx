@@ -10,7 +10,7 @@ export const PostButton = () => {
       <Button
         type="primary"
         style={{ marginBottom: "20px" }}
-        block
+        
         size="large"
         onClick={handleClick}
       >
