@@ -1,22 +1,20 @@
-import React, { useContext, useCallback } from "react";
+import React, { useCallback } from "react";
 import { Col, Row } from "antd";
-import { PostButton } from "../../components/PostButton";
 import api from "../../utils/Api";
-import { BreadcrumbTitle } from "../../components/BreadcrumbTitle";
 import { PostPage } from "../../components/PostPage";
 import { useParams, useNavigate } from "react-router-dom";
 import { useApi } from "./../../hooks/useApi";
 import { NotFound } from "../../components/NotFound/NotFound";
 import { SkeletonCard } from "../../components/SkeletonCard/SkeletonCard";
 
-export const PostCardPage = ({ handlePostLike, posts }) => { 
+export const PostCardPage = ({ handlePostLike, posts, setPosts }) => { 
   const { postID } = useParams();
   const navigate = useNavigate();
 
 
   function handlClickBack() {
-    navigate(-1);
-  }
+    navigate(-1);    
+      }
 
   const handler = useCallback(() => {
     return api.getPostById(postID);
@@ -29,11 +27,9 @@ export const PostCardPage = ({ handlePostLike, posts }) => {
     <>
       {!error && (
         <>
-          <BreadcrumbTitle handlClickBack={handlClickBack} />
-          <PostButton />
           
           <Row>
-            <Col span={18} offset={0}>
+            <Col span={24} offset={0}>
               <div className="site-layout-content">
               {post && (
                 <PostPage
@@ -41,6 +37,7 @@ export const PostCardPage = ({ handlePostLike, posts }) => {
                   posts = {posts}
                   onPostLike={handlePostLike}
                   handlClickBack={handlClickBack}
+                  setPosts={setPosts}                 
                 />
               )} 
               </div>

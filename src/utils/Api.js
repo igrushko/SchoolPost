@@ -1,7 +1,6 @@
-const onResponce = (res) => {  
+const onResponce = (res) => {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
 };
-
 
 class Api {
   constructor({ baseUrl, token }) {
@@ -9,8 +8,8 @@ class Api {
     this._token = `Bearer ${token}`;
   }
 
-  getPostsList() {
-    return fetch(`${this._baseUrl}/posts`, {
+  getPostsList(page=1, limit=100) {
+    return fetch(`${this._baseUrl}/posts/paginate?page=${page}&limit=${limit}`, {
       headers: {
         authorization: this._token,
       },
@@ -22,6 +21,17 @@ class Api {
       headers: {
         authorization: this._token,
       },
+    }).then(onResponce);
+  }
+
+  changeAvatar(av) {   
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-type": "application/json",
+      },
+     body: JSON.stringify(av),
     }).then(onResponce);
   }
 
@@ -53,7 +63,29 @@ class Api {
       },
     }).then(onResponce);
   }
-  
+
+  addPost( values) {
+    return fetch(`${this._baseUrl}/posts`, {
+      method: "POST",
+      headers: {
+        authorization: this._token,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(values),
+    }).then(onResponce);
+  }
+
+  editPostById(postID, values) {   
+    return fetch(`${this._baseUrl}/posts/${postID}`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(values),
+    }).then(onResponce);
+  }
+
 }
 const config = {
   baseUrl: "https://api.react-learning.ru",
