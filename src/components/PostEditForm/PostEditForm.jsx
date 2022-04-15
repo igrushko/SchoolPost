@@ -4,9 +4,10 @@ import api from '../../utils/Api';
 
 
 
-export const PostEditForm = ({ visible, onEdit, onCancel, _id }) => {
+export const PostEditForm = ({ visible, onEdit, onCancel, _id, updateValues }) => {
  
   const [values, setValues] = useState({});
+ 
   
   useEffect(() => {
     api.getPostById(_id)
@@ -30,6 +31,7 @@ export const PostEditForm = ({ visible, onEdit, onCancel, _id }) => {
           .then((values) => {
             form.resetFields();
             onEdit(values);
+            updateValues(values);
           })
           .catch((info) => {
             console.log('Validate Failed:', info);
@@ -44,7 +46,7 @@ export const PostEditForm = ({ visible, onEdit, onCancel, _id }) => {
          title: values.title,
          image: values.image,
          text: values.text,
-         tags: values.tags,
+         tags: [values.tags],
         }}
       >
         <Form.Item

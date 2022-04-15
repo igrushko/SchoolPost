@@ -1,10 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Avatar, Typography, Timeline, Tag, Card, Row, Col, Image } from "antd";
+import { Avatar, Typography, Timeline, Tag, Card, Row, Col, Image, Modal } from "antd";
 import {
   MessageOutlined,
   HeartTwoTone,
   DeleteOutlined,
-  EditOutlined
+  EditOutlined,
+  ExclamationCircleOutlined
 } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { IconText } from "../IconText";
@@ -14,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { PostEditForm } from "../PostEditForm/PostEditForm";
 
 
-
+const { confirm } = Modal;
 const { Meta } = Card;
 const { Title } = Typography;
 const gridStyle = {
@@ -36,7 +37,7 @@ export const PostPage = ({
   created_at,
   updated_at,
   setPosts,
-  posts
+  posts  
 }) => {
   const dataFormated = dayjs(created_at).format("dddd, MMMM D, YYYY h:mm A");
   const dataFormatedUp = dayjs(updated_at).format("dddd, MMMM D, YYYY h:mm A");
@@ -47,24 +48,37 @@ export const PostPage = ({
     navigate(0);
   };
   const [visible, setVisible] = useState(false);
-
+  
   const onEdit = (values) => {  
-    //values = {...values, tags: values.tags?.split(",").map(tag => tag?.trim()).filter(tag => tag !== "")}  
-    api.editPostById(_id, values)
-    .then((newPost) => {
-      const newPosts = posts.map(post => post._id === newPost._id ? newPost : post);
-      setPosts(newPosts)      
+   values = {...values, tags: values.tags?.split(",").map(tag => tag?.trim()).filter(tag => tag !== "")}  
+    api.editPostById(_id, values) 
+    .then((newPost) => {     
+      const newPosts = posts.map(p => p._id === newPost._id ? newPost : p);
+      setPosts(newPosts);      
      });
-   setVisible(false);
+   setVisible(false);  
  }            
  
   function handleLikeClick() {
     onPostLike({ _id, likes });
   }
 
-  function handleDeleteClick() {
-    api.deletePost(_id).then(refreshPage);
+  function showDeleteConfirm() {
+    confirm({
+      title: 'Are you sure delete this post?',
+      icon: <ExclamationCircleOutlined />,      
+      okText: 'Yes',
+      cancelText: 'No',
+      onOk() {       
+    api.deletePost(_id).then(refreshPage);  
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
   }
+
+  
 
   function handleCommentClick() {
     console.log("comment click");
@@ -138,7 +152,7 @@ export const PostPage = ({
               icon={DeleteOutlined}
               twoToneColor="#eb2f96"
               key="list-vertical-message"
-              onClick={handleDeleteClick}
+              onClick={showDeleteConfirm}
             />
           ) : (
             <></>
@@ -178,6 +192,7 @@ export const PostPage = ({
           <p>{text}</p>
         </Card.Grid>
       </Card>
+
       <PostEditForm      
        visible={visible}
        onEdit={onEdit}

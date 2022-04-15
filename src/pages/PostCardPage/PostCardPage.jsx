@@ -21,6 +21,7 @@ export const PostCardPage = ({ handlePostLike, posts, setPosts }) => {
   }, [postID, posts]);
 
   const { data: post, loading, error } = useApi(handler);
+  console.log(post);
  
  
   return (
@@ -37,7 +38,7 @@ export const PostCardPage = ({ handlePostLike, posts, setPosts }) => {
                   posts = {posts}
                   onPostLike={handlePostLike}
                   handlClickBack={handlClickBack}
-                  setPosts={setPosts}                 
+                  setPosts={setPosts}                                 
                 />
               )} 
               </div>
@@ -48,7 +49,7 @@ export const PostCardPage = ({ handlePostLike, posts, setPosts }) => {
       )}
       {error && (
         <NotFound
-          title="Post not found"
+          title="Sorry, this post does not exist."
           buttonText="All Post"
           buttonAction={() => navigate("/")}
         />        

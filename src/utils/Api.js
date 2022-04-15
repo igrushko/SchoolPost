@@ -44,9 +44,7 @@ class Api {
     }).then(onResponce);
   }
 
-  deletePost(postID) {
-    const approve = confirm("Are you sure?");
-    if (approve) {
+  deletePost(postID) {    
       return fetch(`${this._baseUrl}/posts/${postID}`, {
         method: "DELETE",
         headers: {
@@ -54,7 +52,6 @@ class Api {
         },
       }).then(onResponce);
     }
-  }
 
   getPostById(postID) {
     return fetch(`${this._baseUrl}/posts/${postID}`, {

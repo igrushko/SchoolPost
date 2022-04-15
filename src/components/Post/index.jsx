@@ -4,6 +4,7 @@ import { MessageOutlined, HeartTwoTone } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { IconText } from "../IconText";
 import { Link } from "react-router-dom";
+import "./style.css";
 
 const { Panel } = Collapse;
 const { Title } = Typography;
@@ -30,7 +31,7 @@ export const Post = ({
   }
 
   function ImageDemo() {
-    return <Image width={400} src={image} />;
+    return <Image width={400} src={image}/>;
   }
   return (
     <List.Item

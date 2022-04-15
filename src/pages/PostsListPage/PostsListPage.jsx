@@ -5,8 +5,7 @@ import { CurrentUserContext } from "../../context/currentUserContext";
 
 export const PostsListPage = ({
   posts,
-  handlePostLike,
-  setPosts,
+  handlePostLike,  
 }) => {
   const currentUser = useContext(CurrentUserContext);
   return (
