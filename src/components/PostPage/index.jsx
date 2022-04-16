@@ -49,8 +49,8 @@ export const PostPage = ({
   };
   const [visible, setVisible] = useState(false);
   
-  const onEdit = (values) => {  
-   values = {...values, tags: values.tags?.split(",").map(tag => tag?.trim()).filter(tag => tag !== "")}  
+  const onEdit = (values) => {
+   values = {...values, tags: (values.tags.length !== 0 ? values?.tags.split(",").map(tag => tag.trim()).filter(tag => tag !== "") : [])}  
     api.editPostById(_id, values) 
     .then((newPost) => {     
       const newPosts = posts.map(p => p._id === newPost._id ? newPost : p);

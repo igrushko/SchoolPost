@@ -21,8 +21,6 @@ export const PostCardPage = ({ handlePostLike, posts, setPosts }) => {
   }, [postID, posts]);
 
   const { data: post, loading, error } = useApi(handler);
-  console.log(post);
- 
  
   return (
     <>

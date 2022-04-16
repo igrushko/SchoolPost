@@ -52,10 +52,10 @@ export const HeaderTitle = () => {
       <Space direction="horizontal" style={{ padding: "10px 100px" }}>
         <Avatar size={120} src={currentUser.avatar} />
         <Title style={{ paddingLeft: "30px", color: "#0099FF" }} level={2}>
-          Добро пожаловать в CoolPosts!
+        Welcome to Our CoolPosts!
         </Title>
         
-        <Title style={{ color: "#0099FF" }} level={3}>Читай, расслабляйся и делись интересным ;-)</Title>
+        <Title style={{ color: "#0099FF" }} level={3}>Read, relax and post interesting content;-)</Title>
            </Space>   
     </Layout>
   );

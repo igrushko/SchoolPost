@@ -1,9 +1,9 @@
-import React from 'react';
-import { Modal, Form, Input } from 'antd';
+import React from "react";
+import { Modal, Form, Input } from "antd";
 
 export const PostCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
-    return (
+  return (
     <Modal
       visible={visible}
       title="Create a new post"
@@ -18,7 +18,7 @@ export const PostCreateForm = ({ visible, onCreate, onCancel }) => {
             onCreate(values);
           })
           .catch((info) => {
-            console.log('Validate Failed:', info);
+            console.log("Validate Failed:", info);
           });
       }}
     >
@@ -27,57 +27,57 @@ export const PostCreateForm = ({ visible, onCreate, onCancel }) => {
         layout="vertical"
         name="form_in_modal"
         initialValues={{
-          modifier: 'public',
+          modifier: "public",
         }}
       >
         <Form.Item
-        name="title"          
+          name="title"
           label="Title"
           rules={[
             {
               required: true,
-              message: 'Please input the title of your post',
+              message: "Please input the title of your post",
             },
+            { type: "string", min: 2 },
+            { whitespace: true },
           ]}
         >
           <Input />
-          </Form.Item>
+        </Form.Item>
 
-          <Form.Item
-          name="text" 
-          label="Text" 
+        <Form.Item
+          name="text"
+          label="Text"
           rules={[
             {
               required: true,
-              message: 'Please input the text of your post',
+              message: "Please input the text of your post",
             },
-          ]}>          
-         <Input.TextArea />
-      </Form.Item>    
-
-      <Form.Item 
-      label="Image"
-       name = "image"
-       rules={[
-        {
-          required: true,
-          message: 'Please input the link to the image of your post',
-        },
-        { type: 'url', warningOnly: true }, 
-        { type: 'string', min: 6 }
-      ]}>       
-      
-        <Input  placeholder="Input link to image" />
+            { whitespace: true },
+          ]}
+        >
+          <Input.TextArea />
         </Form.Item>
 
-         <Form.Item 
-         label="Tags"
-         name = "tags">
-        <Input  placeholder="legendary, cool, kife" />
-        </Form.Item>       
-      
+        <Form.Item
+          label="Image"
+          name="image"
+          rules={[
+            {
+              required: true,
+              message: "Please input the link to the image of your post",
+            },
+            { type: "url", warningOnly: true },
+            { type: "string", min: 6 },
+          ]}
+        >
+          <Input placeholder="Input link to image" />
+        </Form.Item>
+
+        <Form.Item label="Tags" name="tags" rules={[{ whitespace: true }]}>
+          <Input placeholder="legendary, cool, kife" />
+        </Form.Item>
       </Form>
     </Modal>
   );
 };
-
